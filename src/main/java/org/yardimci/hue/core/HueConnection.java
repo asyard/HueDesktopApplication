@@ -37,7 +37,7 @@ public class HueConnection {
         try {
             //todo
             client = ClientBuilder.newClient();
-            WebTarget webTarget = client.target("https://discovery.meethue.com/"); //response:[{"id":"ecb5fafffe24592d","internalipaddress":"192.168.0.22"}]
+            WebTarget webTarget = client.target("https://discovery.meethue.com/"); //response:[{"id":"xxx","internalipaddress":"192.168.0.22"}]
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
             Response response = invocationBuilder.get();
             if (response == null || response.getStatus() != 200) {
@@ -206,6 +206,35 @@ public class HueConnection {
 
         //todo
         isConnected = false;
+        return true;
+    }
+
+    public boolean turnOffLamp(String id) {
+        return changeLampStatus(id, false);
+    }
+
+
+    public boolean turnOnLamp(String id) {
+        return changeLampStatus(id, true);
+    }
+
+    private boolean changeLampStatus(String id, boolean open) {
+        try {
+            WebTarget webTarget = client.target("http://"+ getBridge().getInternalipaddress()).path("api").
+                    path(HueAppSettings.getInstance().getAppId()).path("lights").path(id).path("state");
+
+            String putString = open ? "{\"on\":true}" : "{\"on\":false}"; // todo
+
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+            Response response = invocationBuilder.put(Entity.entity(putString, MediaType.APPLICATION_XML));
+            if (response == null || response.getStatus() != 200) {
+                System.out.println("Response is empty or not valid");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 }

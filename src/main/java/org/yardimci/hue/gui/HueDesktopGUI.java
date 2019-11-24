@@ -121,7 +121,7 @@ public class HueDesktopGUI extends JFrame {
             try {
                 Lamp singleLampResponseData = HueConnection.getInstance().getSingleLampResponseData(String.valueOf(row+1));//todo
                 LampConfigGUI lampConfigGUI = new LampConfigGUI(this);
-                lampConfigGUI.setData(singleLampResponseData);
+                lampConfigGUI.setData(String.valueOf(row + 1), singleLampResponseData);
                 lampConfigGUI.setVisible(true);
             } catch (Exception ex) {
                 ex.printStackTrace();

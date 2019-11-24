@@ -26,12 +26,7 @@ public class LampTableModel extends AbstractTableModel {
     private static final String[] columnNames = {"label.name", "label.description", "label.id", "label.status"};
     private static final Class<?>[] columnTypes = new Class<?>[] {String.class, String.class, Integer.class,  Boolean.class};
 
-    private Object[][] data = {
-            {"Lamp1", "Desc1", new Integer(5), new Boolean(false)},
-            {"Lamp2", "Desc2", new Integer(3), new Boolean(true)},
-            {"Lamp3", "Desc3", new Integer(2), new Boolean(false)},
-            {"Lamp4", "Desc4", new Integer(20), new Boolean(true)}
-    };
+    private Object[][] data ;
 
     @Override
     public int getRowCount() {
@@ -52,6 +47,8 @@ public class LampTableModel extends AbstractTableModel {
     public Class<?> getColumnClass(int columnIndex) {
         return columnTypes[columnIndex];
     }
+
+
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
