@@ -1,0 +1,73 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.3" encoding: "UTF-8"
+
+new FormModel {
+	"i18n.autoExternalize": true
+	"i18n.bundleName": "Bundle"
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": new FormMessage( null, "label.apptitle" )
+			"minimumSize": new java.awt.Dimension( 400, 350 )
+			"maximizedBounds": new java.awt.Rectangle( 0, 0, 800, 700 )
+			"defaultCloseOperation": 3
+			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/icons/applogo.png" )
+			"resizable": false
+			add( new FormContainer( "javax.swing.JToolBar", new FormLayoutManager( class javax.swing.JToolBar ) ) {
+				name: "toolBar"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "connectButton"
+					"text": new FormMessage( null, "label.connect" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/icons/connect.png" )
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "connectButton"
+					}
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "connectButtonActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "settingsButton"
+					"text": new FormMessage( null, "label.settings" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/icons/settings.png" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "settingsButtonActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "helpButton"
+					"text": new FormMessage( null, "label.help" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/icons/help.png" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "helpButtonActionPerformed", true ) )
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 0
+				"width": 400
+				"height": 40
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "lampTable"
+					"selectionMode": 0
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "lampTableMouseClicked", true ) )
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 5
+				"y": 40
+				"width": 395
+				"height": 190
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "refreshLampListButton"
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/icons/refresh.png" )
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "refreshLampListButtonActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 340
+				"y": 235
+				"width": 45
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 290 )
+		} )
+	}
+}
