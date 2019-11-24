@@ -83,11 +83,13 @@ public class LampConfigGUI extends JDialog {
 
             //======== generalPanel ========
             {
-                generalPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
-                ( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
-                . TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
-                . Color. red) ,generalPanel. getBorder( )) ); generalPanel. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
-                propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( )
+                generalPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (
+                new javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion"
+                , javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM
+                , new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 )
+                , java. awt. Color. red) ,generalPanel. getBorder( )) ); generalPanel. addPropertyChangeListener (
+                new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
+                ) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( )
                 ; }} );
                 generalPanel.setLayout(null);
 
@@ -106,7 +108,7 @@ public class LampConfigGUI extends JDialog {
                 idValueLabel.setBounds(95, 60, 200, 20);
 
                 //---- turnOnOfButton ----
-                turnOnOfButton.setText(bundle.getString("turnOnOfButton.text"));
+                turnOnOfButton.setText(bundle.getString("label.turnonoff"));
                 turnOnOfButton.addActionListener(e -> turnOnOfButtonActionPerformed(e));
                 generalPanel.add(turnOnOfButton);
                 turnOnOfButton.setBounds(new Rectangle(new Point(135, 200), turnOnOfButton.getPreferredSize()));
