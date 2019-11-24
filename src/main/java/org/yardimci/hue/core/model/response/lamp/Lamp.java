@@ -1,5 +1,8 @@
 package org.yardimci.hue.core.model.response.lamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Lamp {
     private LampState state;
     private SWUpdate swupdate;

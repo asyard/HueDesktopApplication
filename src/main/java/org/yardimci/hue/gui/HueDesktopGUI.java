@@ -13,6 +13,7 @@ import org.yardimci.hue.core.model.response.lamp.Lamp;
 import org.yardimci.hue.gui.common.LampTableModel;
 import org.yardimci.hue.gui.common.Messagebox;
 import org.yardimci.hue.gui.help.HelpDialogGUI;
+import org.yardimci.hue.gui.lampconfig.LampConfigGUI;
 import org.yardimci.hue.gui.settings.SettingsDialogGUI;
 import org.yardimci.hue.lang.Bundle;
 
@@ -116,7 +117,19 @@ public class HueDesktopGUI extends JFrame {
             JTable target = (JTable)e.getSource();
             int row = target.getSelectedRow(); // select a row
             int column = target.getSelectedColumn(); // select a column
-            Messagebox.showError(row + "- " + column);
+
+            try {
+                Lamp singleLampResponseData = HueConnection.getInstance().getSingleLampResponseData(String.valueOf(row+1));//todo
+                LampConfigGUI lampConfigGUI = new LampConfigGUI(this);
+                lampConfigGUI.setData(singleLampResponseData);
+                lampConfigGUI.setVisible(true);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Messagebox.showError("error.operationfailed");
+                return;
+            }
+
+            //Messagebox.showError(row + "- " + column);
         }
     }
 

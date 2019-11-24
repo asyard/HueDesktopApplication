@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.yardimci.hue.core.model.response.lamp.Lamp;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LightResponseData {
+public class LampResponseData {
     @JsonProperty("1")
     private Lamp lamp1;
 

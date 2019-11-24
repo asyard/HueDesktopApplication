@@ -2,8 +2,7 @@ package org.yardimci.hue.core;
 
 import org.yardimci.hue.config.HueAppSettings;
 import org.yardimci.hue.core.model.Bridge;
-import org.yardimci.hue.core.model.response.LightResponse;
-import org.yardimci.hue.core.model.response.LightResponseData;
+import org.yardimci.hue.core.model.response.LampResponseData;
 import org.yardimci.hue.core.model.response.lamp.Lamp;
 
 import javax.ws.rs.client.*;
@@ -80,7 +79,7 @@ public class HueConnection {
         }
 
         try {
-            WebTarget webTarget = client.target("http://"+ getBridge().getInternalipaddress()).path("api").path(HueAppSettings.getInstance().getAppId());
+            WebTarget webTarget = client.target("http://"+ getBridge().getInternalipaddress()).path("api").path(HueAppSettings.getInstance().getAppId()).path("lights");
 
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
             Response response = invocationBuilder.get();
@@ -89,7 +88,7 @@ public class HueConnection {
                 throw new Exception("error.responseisnotvalid");
             }
 
-            LightResponse lampListResultList = response.readEntity(LightResponse.class);
+            LampResponseData lampListResultList = response.readEntity(LampResponseData.class);
             System.out.println(lampListResultList);
             /*if (lampListResultList == null || lampListResultList.isEmpty()) {
                 System.out.println("result is empty");
@@ -106,15 +105,14 @@ public class HueConnection {
                     e.printStackTrace();
                 }
             }*/
-            LightResponseData lights = lampListResultList.getLights();
-            if (lights.getLamp1() != null) {
-                lampList.add(lights.getLamp1());
+            if (lampListResultList.getLamp1() != null) {
+                lampList.add(lampListResultList.getLamp1());
             }
-            if (lights.getLamp2() != null) {
-                lampList.add(lights.getLamp2());
+            if (lampListResultList.getLamp2() != null) {
+                lampList.add(lampListResultList.getLamp2());
             }
-            if (lights.getLamp3() != null) {
-                lampList.add(lights.getLamp3());
+            if (lampListResultList.getLamp3() != null) {
+                lampList.add(lampListResultList.getLamp3());
             }
 
         } catch (Exception e) {
@@ -122,6 +120,23 @@ public class HueConnection {
             throw new Exception("error.unabletolistlamps");
         }
         return lampList;
+    }
+
+    public Lamp getSingleLampResponseData(String id) throws Exception {
+        WebTarget webTarget = client.target("http://"+ getBridge().getInternalipaddress()).path("api").path(HueAppSettings.getInstance().getAppId()).path("lights").path(id);
+
+        Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+        if (response == null || response.getStatus() != 200) {
+            System.out.println("Response is empty or not valid");
+            throw new Exception("error.responseisnotvalid");
+        }
+
+        Lamp lampResponseData = response.readEntity(Lamp.class);
+        System.out.println(lampResponseData);
+
+        return lampResponseData;
+
     }
 
     public boolean createAppId() {
