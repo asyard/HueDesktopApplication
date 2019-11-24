@@ -6,7 +6,7 @@ public class LampState {
     private int hue;
     private int sat;
     private String effect;
-    private double[] xy; //todo
+    private double[] xy;
     private int ct;
     private String alert;
     private String colormode;
@@ -60,8 +60,6 @@ public class LampState {
     public void setEffect(String effect) {
         this.effect = effect;
     }
-
-
 
     public int getCt() {
         return ct;

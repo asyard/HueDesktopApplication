@@ -44,7 +44,6 @@ public class PPP extends JFrame {
     }
 
     private void checkBox1ActionPerformed(ActionEvent e) {
-        // TODO add your code here
         System.out.println(ts.isActivated());
         ts.setActivated(checkBox1.isSelected());
         ts.repaint();

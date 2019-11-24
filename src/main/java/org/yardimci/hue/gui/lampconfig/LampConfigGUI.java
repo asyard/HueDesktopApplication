@@ -41,7 +41,6 @@ public class LampConfigGUI extends JDialog {
     }
 
     private void turnOnOfButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
         if (isOn) {
             boolean success = HueConnection.getInstance().turnOffLamp(lampOrderId);
             if (success) {
