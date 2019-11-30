@@ -184,8 +184,52 @@ new FormModel {
 							"text": new FormMessage( null, "label.turnonoff" )
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "turnOnOfButtonActionPerformed", true ) )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 125
+							"x": 245
+							"y": 10
+							"height": 30
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "changeLightNameButton"
+							"text": new FormMessage( null, "label.changename" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "changeLightNameButtonActionPerformed", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 240
+							"y": 80
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "lightStatusLabel"
+							"text": new FormMessage( null, "label.status" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 15
 							"y": 15
+							"height": 20
+							"width": 110
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "lightStatusValueLabel"
+							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 135
+							"y": 15
+							"height": 20
+							"width": 60
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "controlNameLabel"
+							"text": new FormMessage( null, "label.name" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 15
+							"y": 50
+							"height": 20
+							"width": 110
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "controlLightNameTextfield"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 135
+							"y": 50
+							"width": 225
+							"height": 25
 						} )
 					} )
 				}, new FormLayoutConstraints( null ) {
