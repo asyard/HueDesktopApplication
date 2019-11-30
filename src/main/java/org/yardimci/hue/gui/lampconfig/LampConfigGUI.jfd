@@ -13,49 +13,141 @@ new FormModel {
 			"title": new FormMessage( null, "label.details" )
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "lightDetailsPane"
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
-					name: "generalPanel"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "nameLabel"
-						"text": new FormMessage( null, "label.name" )
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"x": 30
-						"y": 25
-						"width": 70
-						"height": 20
-					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "nameValueLabel"
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"x": 95
-						"y": 30
-						"height": 20
-						"width": 200
-					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "idLabel"
-						"text": new FormMessage( null, "label.id" )
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"x": 30
-						"y": 60
-						"width": 45
-						"height": 20
-					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "idValueLabel"
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"x": 95
-						"y": 60
-						"height": 20
-						"width": 200
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "turnOnOfButton"
-						"text": new FormMessage( null, "label.turnonoff" )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "turnOnOfButtonActionPerformed", true ) )
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"x": 135
-						"y": 200
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "generalPanelScrollPane"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "generalPanel"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "nameLabel"
+							"text": new FormMessage( null, "label.name" )
+							"toolTipText": new FormMessage( null, "label.name" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 10
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "nameValueLabel"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 130
+							"y": 10
+							"height": 20
+							"width": 200
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "modelIdLabel"
+							"text": new FormMessage( null, "label.modelid" )
+							"toolTipText": new FormMessage( null, "label.modelid" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 35
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "modelIdValueLabel"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 130
+							"y": 35
+							"height": 20
+							"width": 200
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "uniqueIdLabel"
+							"text": new FormMessage( null, "label.uniqueid" )
+							"toolTipText": new FormMessage( null, "label.uniqueid" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 60
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "uniqueIdValueLabel"
+							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 130
+							"y": 60
+							"width": 200
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "swVersionLabel"
+							"text": new FormMessage( null, "label.swversion" )
+							"toolTipText": new FormMessage( null, "label.swversion" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 135
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "swVersionValueLabel"
+							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 130
+							"y": 135
+							"width": 200
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "productIdLabel"
+							"text": new FormMessage( null, "label.productid" )
+							"toolTipText": new FormMessage( null, "label.productid" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 85
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "productIdValueLabel"
+							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 130
+							"y": 85
+							"width": 200
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "productNameLabel"
+							"text": new FormMessage( null, "label.productname" )
+							"toolTipText": new FormMessage( null, "label.productname" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 110
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "productNameValueLabel"
+							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 130
+							"y": 110
+							"width": 200
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "swUpdateLabel"
+							"text": new FormMessage( null, "label.swupdate" )
+							"toolTipText": new FormMessage( null, "label.swupdate" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 160
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "swUpdateValueLabel"
+							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 130
+							"y": 160
+							"width": 200
+							"height": 20
+						} )
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": new FormMessage( null, "label.General" )
@@ -79,6 +171,19 @@ new FormModel {
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": new FormMessage( null, "label.capabilities" )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "lightControlPanel"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "turnOnOfButton"
+						"text": new FormMessage( null, "label.turnonoff" )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "turnOnOfButtonActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 125
+						"y": 15
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": new FormMessage( null, "label.control" )
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 0
