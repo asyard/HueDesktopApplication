@@ -82,9 +82,11 @@ public class LampConfigGUI extends JDialog {
         productNameValueLabel = new JLabel();
         swUpdateLabel = new JLabel();
         swUpdateValueLabel = new JLabel();
+        capabilitiesScrollPane = new JScrollPane();
         capabilitiesPanel = new JPanel();
         certifiedLabel = new JLabel();
         certifiedValueCheckbox = new JCheckBox();
+        controlScrollPane = new JScrollPane();
         lightControlPanel = new JPanel();
         turnOnOfButton = new JButton();
         closeButton = new JButton();
@@ -105,13 +107,12 @@ public class LampConfigGUI extends JDialog {
 
                 //======== generalPanel ========
                 {
-                    generalPanel.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax
-                    . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e" , javax. swing
-                    .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .
-                    Font ( "D\u0069al\u006fg", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red
-                    ) ,generalPanel. getBorder () ) ); generalPanel. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override
-                    public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062or\u0064er" .equals ( e. getPropertyName (
-                    ) ) )throw new RuntimeException( ) ;} } );
+                    generalPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+                    EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax. swing
+                    . border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ),
+                    java. awt. Color. red) ,generalPanel. getBorder( )) ); generalPanel. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+                    { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () ))
+                    throw new RuntimeException( ); }} );
                     generalPanel.setLayout(null);
 
                     //---- nameLabel ----
@@ -204,64 +205,74 @@ public class LampConfigGUI extends JDialog {
             }
             lightDetailsPane.addTab(bundle.getString("label.General"), generalPanelScrollPane);
 
-            //======== capabilitiesPanel ========
+            //======== capabilitiesScrollPane ========
             {
-                capabilitiesPanel.setLayout(null);
 
-                //---- certifiedLabel ----
-                certifiedLabel.setText(bundle.getString("label.certified"));
-                certifiedLabel.setPreferredSize(new Dimension(52, 20));
-                capabilitiesPanel.add(certifiedLabel);
-                certifiedLabel.setBounds(new Rectangle(new Point(25, 30), certifiedLabel.getPreferredSize()));
-
-                //---- certifiedValueCheckbox ----
-                certifiedValueCheckbox.setEnabled(false);
-                capabilitiesPanel.add(certifiedValueCheckbox);
-                certifiedValueCheckbox.setBounds(new Rectangle(new Point(95, 30), certifiedValueCheckbox.getPreferredSize()));
-
+                //======== capabilitiesPanel ========
                 {
-                    // compute preferred size
-                    Dimension preferredSize = new Dimension();
-                    for(int i = 0; i < capabilitiesPanel.getComponentCount(); i++) {
-                        Rectangle bounds = capabilitiesPanel.getComponent(i).getBounds();
-                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                    }
-                    Insets insets = capabilitiesPanel.getInsets();
-                    preferredSize.width += insets.right;
-                    preferredSize.height += insets.bottom;
-                    capabilitiesPanel.setMinimumSize(preferredSize);
-                    capabilitiesPanel.setPreferredSize(preferredSize);
-                }
-            }
-            lightDetailsPane.addTab(bundle.getString("label.capabilities"), capabilitiesPanel);
+                    capabilitiesPanel.setLayout(null);
 
-            //======== lightControlPanel ========
+                    //---- certifiedLabel ----
+                    certifiedLabel.setText(bundle.getString("label.certified"));
+                    certifiedLabel.setPreferredSize(new Dimension(52, 20));
+                    capabilitiesPanel.add(certifiedLabel);
+                    certifiedLabel.setBounds(new Rectangle(new Point(25, 30), certifiedLabel.getPreferredSize()));
+
+                    //---- certifiedValueCheckbox ----
+                    certifiedValueCheckbox.setEnabled(false);
+                    capabilitiesPanel.add(certifiedValueCheckbox);
+                    certifiedValueCheckbox.setBounds(new Rectangle(new Point(95, 30), certifiedValueCheckbox.getPreferredSize()));
+
+                    {
+                        // compute preferred size
+                        Dimension preferredSize = new Dimension();
+                        for(int i = 0; i < capabilitiesPanel.getComponentCount(); i++) {
+                            Rectangle bounds = capabilitiesPanel.getComponent(i).getBounds();
+                            preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                            preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                        }
+                        Insets insets = capabilitiesPanel.getInsets();
+                        preferredSize.width += insets.right;
+                        preferredSize.height += insets.bottom;
+                        capabilitiesPanel.setMinimumSize(preferredSize);
+                        capabilitiesPanel.setPreferredSize(preferredSize);
+                    }
+                }
+                capabilitiesScrollPane.setViewportView(capabilitiesPanel);
+            }
+            lightDetailsPane.addTab(bundle.getString("label.capabilities"), capabilitiesScrollPane);
+
+            //======== controlScrollPane ========
             {
-                lightControlPanel.setLayout(null);
 
-                //---- turnOnOfButton ----
-                turnOnOfButton.setText(bundle.getString("label.turnonoff"));
-                turnOnOfButton.addActionListener(e -> turnOnOfButtonActionPerformed(e));
-                lightControlPanel.add(turnOnOfButton);
-                turnOnOfButton.setBounds(new Rectangle(new Point(125, 15), turnOnOfButton.getPreferredSize()));
-
+                //======== lightControlPanel ========
                 {
-                    // compute preferred size
-                    Dimension preferredSize = new Dimension();
-                    for(int i = 0; i < lightControlPanel.getComponentCount(); i++) {
-                        Rectangle bounds = lightControlPanel.getComponent(i).getBounds();
-                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                    lightControlPanel.setLayout(null);
+
+                    //---- turnOnOfButton ----
+                    turnOnOfButton.setText(bundle.getString("label.turnonoff"));
+                    turnOnOfButton.addActionListener(e -> turnOnOfButtonActionPerformed(e));
+                    lightControlPanel.add(turnOnOfButton);
+                    turnOnOfButton.setBounds(new Rectangle(new Point(125, 15), turnOnOfButton.getPreferredSize()));
+
+                    {
+                        // compute preferred size
+                        Dimension preferredSize = new Dimension();
+                        for(int i = 0; i < lightControlPanel.getComponentCount(); i++) {
+                            Rectangle bounds = lightControlPanel.getComponent(i).getBounds();
+                            preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                            preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                        }
+                        Insets insets = lightControlPanel.getInsets();
+                        preferredSize.width += insets.right;
+                        preferredSize.height += insets.bottom;
+                        lightControlPanel.setMinimumSize(preferredSize);
+                        lightControlPanel.setPreferredSize(preferredSize);
                     }
-                    Insets insets = lightControlPanel.getInsets();
-                    preferredSize.width += insets.right;
-                    preferredSize.height += insets.bottom;
-                    lightControlPanel.setMinimumSize(preferredSize);
-                    lightControlPanel.setPreferredSize(preferredSize);
                 }
+                controlScrollPane.setViewportView(lightControlPanel);
             }
-            lightDetailsPane.addTab(bundle.getString("label.control"), lightControlPanel);
+            lightDetailsPane.addTab(bundle.getString("label.control"), controlScrollPane);
         }
         contentPane.add(lightDetailsPane);
         lightDetailsPane.setBounds(0, 5, 395, 265);
@@ -310,9 +321,11 @@ public class LampConfigGUI extends JDialog {
     private JLabel productNameValueLabel;
     private JLabel swUpdateLabel;
     private JLabel swUpdateValueLabel;
+    private JScrollPane capabilitiesScrollPane;
     private JPanel capabilitiesPanel;
     private JLabel certifiedLabel;
     private JCheckBox certifiedValueCheckbox;
+    private JScrollPane controlScrollPane;
     private JPanel lightControlPanel;
     private JButton turnOnOfButton;
     private JButton closeButton;
