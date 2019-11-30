@@ -4,9 +4,7 @@
 
 package org.yardimci.hue.gui;
 
-import java.awt.event.*;
-
-import com.apple.eawt.Application;
+import com.sun.javafx.PlatformUtil;
 import org.yardimci.hue.config.HueAppSettings;
 import org.yardimci.hue.core.HueConnection;
 import org.yardimci.hue.core.model.response.lamp.Lamp;
@@ -17,10 +15,14 @@ import org.yardimci.hue.gui.lampconfig.LampConfigGUI;
 import org.yardimci.hue.gui.settings.SettingsDialogGUI;
 import org.yardimci.hue.lang.Bundle;
 
-import java.awt.*;
-import java.util.*;
-import java.util.List;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * @author AY
@@ -76,7 +78,21 @@ public class HueDesktopGUI extends JFrame {
         lampTableModel.clear();
         lampTable.setModel(lampTableModel);
         reloadLabels();
-        Application.getApplication().setDockIconImage(new ImageIcon(getClass().getResource("/icons/applogo-100.png")).getImage());
+
+        try {
+            if (PlatformUtil.isMac()) {
+                //com.apple.eawt.Application.getApplication().setDockIconImage(new ImageIcon(getClass().getResource("/icons/applogo-100.png")).getImage());
+                Image image = new ImageIcon(getClass().getResource("/icons/applogo-100.png")).getImage();
+                Class applicationClass = Class.forName("com.apple.eawt.Application");
+                Method applicationClassSingletonMethod = applicationClass.getMethod("getApplication");
+                Object applicationClassInstance = applicationClassSingletonMethod.invoke(null);
+
+                Method applicationClassSetDockIconMethod = applicationClass.getMethod("setDockIconImage", java.awt.Image.class);
+                applicationClassSetDockIconMethod.invoke(applicationClassInstance, image);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void clearLamps() {
@@ -114,12 +130,12 @@ public class HueDesktopGUI extends JFrame {
 
     private void lampTableMouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {     // to detect doble click events
-            JTable target = (JTable)e.getSource();
+            JTable target = (JTable) e.getSource();
             int row = target.getSelectedRow(); // select a row
             int column = target.getSelectedColumn(); // select a column
 
             try {
-                Lamp singleLampResponseData = HueConnection.getInstance().getSingleLampResponseData(String.valueOf(row+1));//todo
+                Lamp singleLampResponseData = HueConnection.getInstance().getSingleLampResponseData(String.valueOf(row + 1));//todo
                 LampConfigGUI lampConfigGUI = new LampConfigGUI(this);
                 lampConfigGUI.setData(String.valueOf(row + 1), singleLampResponseData);
                 lampConfigGUI.setVisible(true);
@@ -152,7 +168,7 @@ public class HueDesktopGUI extends JFrame {
 
         //======== this ========
         setTitle(bundle.getString("label.apptitle"));
-        setMinimumSize(new Dimension(400, 350));
+        setMinimumSize(new Dimension(400, 250));
         setMaximizedBounds(new Rectangle(0, 0, 800, 700));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getResource("/icons/applogo.png")).getImage());
@@ -210,7 +226,7 @@ public class HueDesktopGUI extends JFrame {
         {
             // compute preferred size
             Dimension preferredSize = new Dimension();
-            for(int i = 0; i < contentPane.getComponentCount(); i++) {
+            for (int i = 0; i < contentPane.getComponentCount(); i++) {
                 Rectangle bounds = contentPane.getComponent(i).getBounds();
                 preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
                 preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);

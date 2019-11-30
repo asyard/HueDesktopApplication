@@ -63,18 +63,18 @@ public class PPP extends JFrame {
         contentPane.setLayout(null);
 
         //---- label1 ----
-        label1.setText(bundle.getString("label1.text"));
+        label1.setText(bundle.getString("label.apptitle"));
         contentPane.add(label1);
         label1.setBounds(new Rectangle(new Point(180, 160), label1.getPreferredSize()));
 
         //---- checkBox1 ----
-        checkBox1.setText(bundle.getString("checkBox1.text"));
+        checkBox1.setText(bundle.getString("error.responseisnotvalid"));
         checkBox1.addActionListener(e -> checkBox1ActionPerformed(e));
         contentPane.add(checkBox1);
         checkBox1.setBounds(new Rectangle(new Point(15, 35), checkBox1.getPreferredSize()));
 
         //---- toggleButton1 ----
-        toggleButton1.setText(bundle.getString("toggleButton1.text"));
+        toggleButton1.setText(bundle.getString("error.unabletolistlamps"));
         contentPane.add(toggleButton1);
         toggleButton1.setBounds(new Rectangle(new Point(50, 105), toggleButton1.getPreferredSize()));
 

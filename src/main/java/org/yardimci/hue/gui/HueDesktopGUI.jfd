@@ -8,7 +8,7 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 			name: "this"
 			"title": new FormMessage( null, "label.apptitle" )
-			"minimumSize": new java.awt.Dimension( 400, 350 )
+			"minimumSize": new java.awt.Dimension( 400, 250 )
 			"maximizedBounds": new java.awt.Rectangle( 0, 0, 800, 700 )
 			"defaultCloseOperation": 3
 			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/icons/applogo.png" )
