@@ -256,4 +256,24 @@ public class HueConnection {
         }
         return true;
     }
+
+    public boolean editLampBrightness(String lampId, int brightness) {
+        try {
+            WebTarget webTarget = client.target("http://"+ getBridge().getInternalipaddress()).path("api").
+                    path(HueAppSettings.getInstance().getAppId()).path("lights").path(lampId).path("state");
+
+            String putString = "{\"bri\": " + brightness + "}";
+
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+            Response response = invocationBuilder.put(Entity.entity(putString, MediaType.APPLICATION_XML));
+            if (response == null || response.getStatus() != 200) {
+                System.out.println("Response is empty or not valid");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

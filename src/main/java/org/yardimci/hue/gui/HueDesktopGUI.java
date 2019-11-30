@@ -36,7 +36,7 @@ public class HueDesktopGUI extends JFrame {
 
     public void reloadLabels() {
         setTitle(Bundle.getValue("label.apptitle"));
-        connectButton.setText(Bundle.getValue("label.connect")); //todo disconnect
+        connectButton.setText(Bundle.getValue(HueConnection.getInstance().isConnected() ? "label.disconnect" : "label.connect"));
         settingsButton.setText(Bundle.getValue("label.settings"));
         helpButton.setText(Bundle.getValue("label.help"));
         ((LampTableModel) lampTable.getModel()).fireTableStructureChanged(); //to change column headers

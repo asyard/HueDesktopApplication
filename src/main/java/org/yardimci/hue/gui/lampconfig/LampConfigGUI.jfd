@@ -193,7 +193,7 @@ new FormModel {
 							"text": new FormMessage( null, "label.changename" )
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "changeLightNameButtonActionPerformed", true ) )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 240
+							"x": 235
 							"y": 80
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
@@ -231,6 +231,42 @@ new FormModel {
 							"width": 225
 							"height": 25
 						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "brightnessLabel"
+							"text": new FormMessage( null, "label.brightness" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 15
+							"y": 125
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JSlider" ) {
+							name: "brightnessSlider"
+							"minimum": 1
+							"maximum": 254
+							"value": 1
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "brightnessSliderMouseReleased", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 155
+							"y": 125
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "colourLabel"
+							"text": new FormMessage( null, "label.colour" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 15
+							"y": 155
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "changeColourButton"
+							"text": new FormMessage( null, "label.change" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "changeColourButtonActionPerformed", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 175
+							"y": 155
+						} )
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": new FormMessage( null, "label.control" )
@@ -252,6 +288,13 @@ new FormModel {
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 400, 350 )
+		} )
+		add( new FormComponent( "javax.swing.JColorChooser" ) {
+			name: "colorChooser"
+			"maximumSize": new java.awt.Dimension( 681, 365 )
+			"visible": false
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 420, 260 )
 		} )
 	}
 }
