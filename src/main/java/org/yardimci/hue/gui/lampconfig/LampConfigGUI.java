@@ -9,6 +9,7 @@ import com.bric.colorpicker.ColorPickerDialog;
 import org.yardimci.hue.core.HueConnection;
 import org.yardimci.hue.core.model.response.lamp.Lamp;
 import org.yardimci.hue.gui.common.Messagebox;
+import org.yardimci.hue.gui.common.custom.ToggleSwitch;
 import org.yardimci.hue.lang.Bundle;
 import org.yardimci.hue.util.Util;
 
@@ -33,7 +34,17 @@ public class LampConfigGUI extends JDialog {
     public LampConfigGUI(Window owner) {
         super(owner);
         initComponents();
+        init();
         initI18n();
+    }
+
+    private void init() {
+        turnOnOffToggle.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                turnOnOfButtonActionPerformed(e);
+            }
+        });
     }
 
     private void initI18n() {
@@ -52,7 +63,6 @@ public class LampConfigGUI extends JDialog {
         swUpdateLabel.setToolTipText(Bundle.getValue("label.swupdate"));
         certifiedLabel.setText(Bundle.getValue("label.certified"));
         certifiedLabel.setToolTipText(Bundle.getValue("label.certified"));
-        turnOnOfButton.setText(Bundle.getValue("label.turnonoff"));
         changeLightNameButton.setText(Bundle.getValue("label.changename"));
         brightnessLabel.setText(Bundle.getValue("label.brightness"));
         brightnessLabel.setToolTipText(Bundle.getValue("label.brightness"));
@@ -62,6 +72,7 @@ public class LampConfigGUI extends JDialog {
     public void setData(String lampOrderId, Lamp lamp) {
         this.lampOrderId = lampOrderId;
         isOn = lamp.getState().isReachable() && lamp.getState().isOn();
+        turnOnOffToggle.setActivated(isOn);
 
         // general
         nameValueLabel.setText(lamp.getName());
@@ -88,7 +99,7 @@ public class LampConfigGUI extends JDialog {
         this.dispose();
     }
 
-    private void turnOnOfButtonActionPerformed(ActionEvent e) {
+    private void turnOnOfButtonActionPerformed(MouseEvent e) {
         if (isOn) {
             boolean success = HueConnection.getInstance().turnOffLamp(lampOrderId);
             if (success) {
@@ -108,6 +119,7 @@ public class LampConfigGUI extends JDialog {
         changeLightNameButton.setEnabled(isOn);
         brightnessSlider.setEnabled(isOn);
         changeColourButton.setEnabled(isOn);
+        turnOnOffToggle.setActivated(isOn);
     }
 
     private void changeLightNameButtonActionPerformed(ActionEvent e) {
@@ -169,6 +181,7 @@ public class LampConfigGUI extends JDialog {
         System.out.println(newColor);*/
     }
 
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - AY
@@ -196,7 +209,6 @@ public class LampConfigGUI extends JDialog {
         typeValueLabel = new JLabel();
         controlScrollPane = new JScrollPane();
         lightControlPanel = new JPanel();
-        turnOnOfButton = new JButton();
         changeLightNameButton = new JButton();
         lightStatusLabel = new JLabel();
         lightStatusValueLabel = new JLabel();
@@ -207,6 +219,7 @@ public class LampConfigGUI extends JDialog {
         colourLabel = new JLabel();
         changeColourButton = new JButton();
         lightColorValueLabel = new JLabel();
+        turnOnOffToggle = new ToggleSwitch();
         closeButton = new JButton();
 
         //======== this ========
@@ -225,13 +238,12 @@ public class LampConfigGUI extends JDialog {
 
                 //======== generalPanel ========
                 {
-                    generalPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing
-                    . border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder
-                    . CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .
-                    awt .Font .BOLD ,12 ), java. awt. Color. red) ,generalPanel. getBorder( )) )
-                    ; generalPanel. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
-                    ) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} )
-                    ;
+                    generalPanel.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border
+                    .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e" , javax. swing .border . TitledBorder. CENTER ,javax
+                    . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dialo\u0067", java .awt . Font. BOLD ,
+                    12 ) ,java . awt. Color .red ) ,generalPanel. getBorder () ) ); generalPanel. addPropertyChangeListener( new java. beans
+                    .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "borde\u0072" .equals ( e.
+                    getPropertyName () ) )throw new RuntimeException( ) ;} } );
                     generalPanel.setLayout(null);
 
                     //---- nameLabel ----
@@ -352,12 +364,6 @@ public class LampConfigGUI extends JDialog {
                 {
                     lightControlPanel.setLayout(null);
 
-                    //---- turnOnOfButton ----
-                    turnOnOfButton.setText(bundle.getString("label.turnonoff"));
-                    turnOnOfButton.addActionListener(e -> turnOnOfButtonActionPerformed(e));
-                    lightControlPanel.add(turnOnOfButton);
-                    turnOnOfButton.setBounds(240, 10, turnOnOfButton.getPreferredSize().width, 30);
-
                     //---- changeLightNameButton ----
                     changeLightNameButton.setText(bundle.getString("label.changename"));
                     changeLightNameButton.addActionListener(e -> changeLightNameButtonActionPerformed(e));
@@ -372,7 +378,7 @@ public class LampConfigGUI extends JDialog {
                     //---- lightStatusValueLabel ----
                     lightStatusValueLabel.setText(null);
                     lightControlPanel.add(lightStatusValueLabel);
-                    lightStatusValueLabel.setBounds(135, 15, 60, 20);
+                    lightStatusValueLabel.setBounds(205, 15, 60, 20);
 
                     //---- controlNameLabel ----
                     controlNameLabel.setText(bundle.getString("label.name"));
@@ -415,6 +421,8 @@ public class LampConfigGUI extends JDialog {
                     lightColorValueLabel.setOpaque(true);
                     lightControlPanel.add(lightColorValueLabel);
                     lightColorValueLabel.setBounds(135, 160, 60, 20);
+                    lightControlPanel.add(turnOnOffToggle);
+                    turnOnOffToggle.setBounds(140, 15, 50, 20);
 
                     {
                         // compute preferred size
@@ -488,7 +496,6 @@ public class LampConfigGUI extends JDialog {
     private JLabel typeValueLabel;
     private JScrollPane controlScrollPane;
     private JPanel lightControlPanel;
-    private JButton turnOnOfButton;
     private JButton changeLightNameButton;
     private JLabel lightStatusLabel;
     private JLabel lightStatusValueLabel;
@@ -499,6 +506,7 @@ public class LampConfigGUI extends JDialog {
     private JLabel colourLabel;
     private JButton changeColourButton;
     private JLabel lightColorValueLabel;
+    private ToggleSwitch turnOnOffToggle;
     private JButton closeButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
