@@ -24,6 +24,11 @@ public class SettingsDialogGUI extends JDialog {
         super(owner);
         initComponents();
         setValues();
+        initI1n8();
+    }
+
+    private void initI1n8() {
+        cancelButton.setText(Bundle.getValue("label.cancel"));
     }
 
     private void setValues() {

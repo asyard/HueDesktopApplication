@@ -33,6 +33,30 @@ public class LampConfigGUI extends JDialog {
     public LampConfigGUI(Window owner) {
         super(owner);
         initComponents();
+        initI18n();
+    }
+
+    private void initI18n() {
+        closeButton.setText(Bundle.getValue("label.ok"));
+        uniqueIdLabel.setText(Bundle.getValue("label.uniqueid"));
+        uniqueIdLabel.setToolTipText(Bundle.getValue("label.uniqueid"));
+        modelIdLabel.setText(Bundle.getValue("label.modelid"));
+        modelIdLabel.setToolTipText(Bundle.getValue("label.modelid"));
+        productIdLabel.setText(Bundle.getValue("label.productid"));
+        productIdLabel.setToolTipText(Bundle.getValue("label.productid"));
+        productNameLabel.setText(Bundle.getValue("label.productname"));
+        productNameLabel.setToolTipText(Bundle.getValue("label.productname"));
+        swVersionLabel.setText(Bundle.getValue("label.swversion"));
+        swVersionLabel.setToolTipText(Bundle.getValue("label.swversion"));
+        swUpdateLabel.setText(Bundle.getValue("label.swupdate"));
+        swUpdateLabel.setToolTipText(Bundle.getValue("label.swupdate"));
+        certifiedLabel.setText(Bundle.getValue("label.certified"));
+        certifiedLabel.setToolTipText(Bundle.getValue("label.certified"));
+        turnOnOfButton.setText(Bundle.getValue("label.turnonoff"));
+        changeLightNameButton.setText(Bundle.getValue("label.changename"));
+        brightnessLabel.setText(Bundle.getValue("label.brightness"));
+        brightnessLabel.setToolTipText(Bundle.getValue("label.brightness"));
+        changeColourButton.setText(Bundle.getValue("label.change"));
     }
 
     public void setData(String lampOrderId, Lamp lamp) {
@@ -201,13 +225,12 @@ public class LampConfigGUI extends JDialog {
 
                 //======== generalPanel ========
                 {
-                    generalPanel.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax
-                    .swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax.swing
-                    .border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.
-                    Font("D\u0069alog",java.awt.Font.BOLD,12),java.awt.Color.red
-                    ),generalPanel. getBorder()));generalPanel. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override
-                    public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062order".equals(e.getPropertyName(
-                    )))throw new RuntimeException();}});
+                    generalPanel.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder
+                    ( 0, 0 ,0 , 0) ,  "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border
+                    .TitledBorder . BOTTOM, new java. awt .Font ( "D\u0069al\u006fg", java .awt . Font. BOLD ,12 ) ,java . awt
+                    . Color .red ) ,generalPanel. getBorder () ) ); generalPanel. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void
+                    propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062or\u0064er" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
+                    ;} } );
                     generalPanel.setLayout(null);
 
                     //---- nameLabel ----
@@ -332,13 +355,13 @@ public class LampConfigGUI extends JDialog {
                     turnOnOfButton.setText(bundle.getString("label.turnonoff"));
                     turnOnOfButton.addActionListener(e -> turnOnOfButtonActionPerformed(e));
                     lightControlPanel.add(turnOnOfButton);
-                    turnOnOfButton.setBounds(250, 10, turnOnOfButton.getPreferredSize().width, 30);
+                    turnOnOfButton.setBounds(240, 10, turnOnOfButton.getPreferredSize().width, 30);
 
                     //---- changeLightNameButton ----
                     changeLightNameButton.setText(bundle.getString("label.changename"));
                     changeLightNameButton.addActionListener(e -> changeLightNameButtonActionPerformed(e));
                     lightControlPanel.add(changeLightNameButton);
-                    changeLightNameButton.setBounds(235, 80, changeLightNameButton.getPreferredSize().width, 30);
+                    changeLightNameButton.setBounds(135, 80, changeLightNameButton.getPreferredSize().width, 30);
 
                     //---- lightStatusLabel ----
                     lightStatusLabel.setText(bundle.getString("label.status"));
@@ -384,13 +407,13 @@ public class LampConfigGUI extends JDialog {
                     changeColourButton.setText(bundle.getString("label.change"));
                     changeColourButton.addActionListener(e -> changeColourButtonActionPerformed(e));
                     lightControlPanel.add(changeColourButton);
-                    changeColourButton.setBounds(270, 155, changeColourButton.getPreferredSize().width, 30);
+                    changeColourButton.setBounds(220, 155, 126, 30);
 
                     //---- lightColorValueLabel ----
                     lightColorValueLabel.setText(null);
                     lightColorValueLabel.setOpaque(true);
                     lightControlPanel.add(lightColorValueLabel);
-                    lightColorValueLabel.setBounds(170, 160, 60, 20);
+                    lightColorValueLabel.setBounds(135, 160, 60, 20);
 
                     {
                         // compute preferred size

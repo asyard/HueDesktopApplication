@@ -32,6 +32,7 @@ public class HelpDialogGUI extends JDialog {
         appVersionLabel.setText(appName);
         appVersionLabel.setToolTipText(appName);
         label2.setToolTipText(label2.getText());
+        setTitle(Bundle.getValue("label.help"));
     }
 
     private void closeButtonActionPerformed(ActionEvent e) {
