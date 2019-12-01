@@ -260,9 +260,9 @@ new FormModel {
 							"value": 1
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "brightnessSliderMouseReleased", true ) )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 135
+							"x": 130
 							"y": 125
-							"width": 225
+							"width": 230
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "colourLabel"
