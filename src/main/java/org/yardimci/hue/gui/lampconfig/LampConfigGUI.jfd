@@ -148,32 +148,26 @@ new FormModel {
 							"width": 200
 							"height": 20
 						} )
-					} )
-				}, new FormLayoutConstraints( null ) {
-					"title": new FormMessage( null, "label.General" )
-				} )
-				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-					name: "capabilitiesScrollPane"
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
-						name: "capabilitiesPanel"
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "certifiedLabel"
 							"text": new FormMessage( null, "label.certified" )
 							"preferredSize": new java.awt.Dimension( 52, 20 )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 25
-							"y": 30
+							"width": 110
+							"height": 20
+							"x": 10
+							"y": 185
 						} )
 						add( new FormComponent( "javax.swing.JCheckBox" ) {
 							name: "certifiedValueCheckbox"
 							"enabled": false
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 95
-							"y": 30
+							"x": 130
+							"y": 185
 						} )
 					} )
 				}, new FormLayoutConstraints( null ) {
-					"title": new FormMessage( null, "label.capabilities" )
+					"title": new FormMessage( null, "label.General" )
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "controlScrollPane"
@@ -184,7 +178,7 @@ new FormModel {
 							"text": new FormMessage( null, "label.turnonoff" )
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "turnOnOfButtonActionPerformed", true ) )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 245
+							"x": 250
 							"y": 10
 							"height": 30
 						} )
@@ -195,13 +189,14 @@ new FormModel {
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 235
 							"y": 80
+							"height": 30
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "lightStatusLabel"
 							"text": new FormMessage( null, "label.status" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 15
-							"y": 15
+							"x": 10
+							"y": 10
 							"height": 20
 							"width": 110
 						} )
@@ -218,7 +213,7 @@ new FormModel {
 							name: "controlNameLabel"
 							"text": new FormMessage( null, "label.name" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 15
+							"x": 10
 							"y": 50
 							"height": 20
 							"width": 110
@@ -235,7 +230,7 @@ new FormModel {
 							name: "brightnessLabel"
 							"text": new FormMessage( null, "label.brightness" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 15
+							"x": 10
 							"y": 125
 							"width": 110
 							"height": 20
@@ -247,15 +242,16 @@ new FormModel {
 							"value": 1
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "brightnessSliderMouseReleased", true ) )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 155
+							"x": 135
 							"y": 125
+							"width": 225
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "colourLabel"
 							"text": new FormMessage( null, "label.colour" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 15
-							"y": 155
+							"x": 10
+							"y": 160
 							"width": 110
 							"height": 20
 						} )
@@ -264,8 +260,9 @@ new FormModel {
 							"text": new FormMessage( null, "label.change" )
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "changeColourButtonActionPerformed", true ) )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-							"x": 250
-							"y": 150
+							"x": 270
+							"y": 155
+							"height": 30
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "lightColorValueLabel"
@@ -273,7 +270,7 @@ new FormModel {
 							"opaque": true
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 170
-							"y": 155
+							"y": 160
 							"width": 60
 							"height": 20
 						} )

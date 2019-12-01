@@ -37,13 +37,14 @@ public class LampConfigGUI extends JDialog {
 
     public void setData(String lampOrderId, Lamp lamp) {
         this.lampOrderId = lampOrderId;
-        isOn = lamp.getState().isOn();
+        isOn = lamp.getState().isReachable() && lamp.getState().isOn();
 
         // general
         nameValueLabel.setText(lamp.getName());
         modelIdValueLabel.setText(lamp.getManufacturername() + " - " + lamp.getModelid());
         uniqueIdValueLabel.setText(lamp.getUniqueid());
         swVersionValueLabel.setText(lamp.getSwversion());
+        swUpdateValueLabel.setText(lamp.getSwupdate().getLastinstall());
         productIdValueLabel.setText(lamp.getProductid());
         productNameValueLabel.setText(lamp.getProductname());
 
@@ -82,6 +83,9 @@ public class LampConfigGUI extends JDialog {
 
     private void changeLightStatusLabel() {
         lightStatusValueLabel.setText(isOn ? Bundle.getValue("label.on") : Bundle.getValue("label.off"));
+        changeLightNameButton.setEnabled(isOn);
+        brightnessSlider.setEnabled(isOn);
+        changeColourButton.setEnabled(isOn);
     }
 
     private void changeLightNameButtonActionPerformed(ActionEvent e) {
@@ -164,8 +168,6 @@ public class LampConfigGUI extends JDialog {
         productNameValueLabel = new JLabel();
         swUpdateLabel = new JLabel();
         swUpdateValueLabel = new JLabel();
-        capabilitiesScrollPane = new JScrollPane();
-        capabilitiesPanel = new JPanel();
         certifiedLabel = new JLabel();
         certifiedValueCheckbox = new JCheckBox();
         controlScrollPane = new JScrollPane();
@@ -199,12 +201,12 @@ public class LampConfigGUI extends JDialog {
 
                 //======== generalPanel ========
                 {
-                    generalPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-                    . EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax
-                    . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
-                    12 ), java. awt. Color. red) ,generalPanel. getBorder( )) ); generalPanel. addPropertyChangeListener (new java. beans
-                    . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .
-                    getPropertyName () )) throw new RuntimeException( ); }} );
+                    generalPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+                    EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing
+                    . border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ),
+                    java. awt. Color. red) ,generalPanel. getBorder( )) ); generalPanel. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+                    { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () ))
+                    throw new RuntimeException( ); }} );
                     generalPanel.setLayout(null);
 
                     //---- nameLabel ----
@@ -278,6 +280,17 @@ public class LampConfigGUI extends JDialog {
                     generalPanel.add(swUpdateValueLabel);
                     swUpdateValueLabel.setBounds(130, 160, 200, 20);
 
+                    //---- certifiedLabel ----
+                    certifiedLabel.setText(bundle.getString("label.certified"));
+                    certifiedLabel.setPreferredSize(new Dimension(52, 20));
+                    generalPanel.add(certifiedLabel);
+                    certifiedLabel.setBounds(10, 185, 110, 20);
+
+                    //---- certifiedValueCheckbox ----
+                    certifiedValueCheckbox.setEnabled(false);
+                    generalPanel.add(certifiedValueCheckbox);
+                    certifiedValueCheckbox.setBounds(new Rectangle(new Point(130, 185), certifiedValueCheckbox.getPreferredSize()));
+
                     {
                         // compute preferred size
                         Dimension preferredSize = new Dimension();
@@ -297,43 +310,6 @@ public class LampConfigGUI extends JDialog {
             }
             lightDetailsPane.addTab(bundle.getString("label.General"), generalPanelScrollPane);
 
-            //======== capabilitiesScrollPane ========
-            {
-
-                //======== capabilitiesPanel ========
-                {
-                    capabilitiesPanel.setLayout(null);
-
-                    //---- certifiedLabel ----
-                    certifiedLabel.setText(bundle.getString("label.certified"));
-                    certifiedLabel.setPreferredSize(new Dimension(52, 20));
-                    capabilitiesPanel.add(certifiedLabel);
-                    certifiedLabel.setBounds(new Rectangle(new Point(25, 30), certifiedLabel.getPreferredSize()));
-
-                    //---- certifiedValueCheckbox ----
-                    certifiedValueCheckbox.setEnabled(false);
-                    capabilitiesPanel.add(certifiedValueCheckbox);
-                    certifiedValueCheckbox.setBounds(new Rectangle(new Point(95, 30), certifiedValueCheckbox.getPreferredSize()));
-
-                    {
-                        // compute preferred size
-                        Dimension preferredSize = new Dimension();
-                        for(int i = 0; i < capabilitiesPanel.getComponentCount(); i++) {
-                            Rectangle bounds = capabilitiesPanel.getComponent(i).getBounds();
-                            preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                            preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                        }
-                        Insets insets = capabilitiesPanel.getInsets();
-                        preferredSize.width += insets.right;
-                        preferredSize.height += insets.bottom;
-                        capabilitiesPanel.setMinimumSize(preferredSize);
-                        capabilitiesPanel.setPreferredSize(preferredSize);
-                    }
-                }
-                capabilitiesScrollPane.setViewportView(capabilitiesPanel);
-            }
-            lightDetailsPane.addTab(bundle.getString("label.capabilities"), capabilitiesScrollPane);
-
             //======== controlScrollPane ========
             {
 
@@ -345,18 +321,18 @@ public class LampConfigGUI extends JDialog {
                     turnOnOfButton.setText(bundle.getString("label.turnonoff"));
                     turnOnOfButton.addActionListener(e -> turnOnOfButtonActionPerformed(e));
                     lightControlPanel.add(turnOnOfButton);
-                    turnOnOfButton.setBounds(245, 10, turnOnOfButton.getPreferredSize().width, 30);
+                    turnOnOfButton.setBounds(250, 10, turnOnOfButton.getPreferredSize().width, 30);
 
                     //---- changeLightNameButton ----
                     changeLightNameButton.setText(bundle.getString("label.changename"));
                     changeLightNameButton.addActionListener(e -> changeLightNameButtonActionPerformed(e));
                     lightControlPanel.add(changeLightNameButton);
-                    changeLightNameButton.setBounds(new Rectangle(new Point(235, 80), changeLightNameButton.getPreferredSize()));
+                    changeLightNameButton.setBounds(235, 80, changeLightNameButton.getPreferredSize().width, 30);
 
                     //---- lightStatusLabel ----
                     lightStatusLabel.setText(bundle.getString("label.status"));
                     lightControlPanel.add(lightStatusLabel);
-                    lightStatusLabel.setBounds(15, 15, 110, 20);
+                    lightStatusLabel.setBounds(10, 10, 110, 20);
 
                     //---- lightStatusValueLabel ----
                     lightStatusValueLabel.setText(null);
@@ -366,14 +342,14 @@ public class LampConfigGUI extends JDialog {
                     //---- controlNameLabel ----
                     controlNameLabel.setText(bundle.getString("label.name"));
                     lightControlPanel.add(controlNameLabel);
-                    controlNameLabel.setBounds(15, 50, 110, 20);
+                    controlNameLabel.setBounds(10, 50, 110, 20);
                     lightControlPanel.add(controlLightNameTextfield);
                     controlLightNameTextfield.setBounds(135, 50, 225, 25);
 
                     //---- brightnessLabel ----
                     brightnessLabel.setText(bundle.getString("label.brightness"));
                     lightControlPanel.add(brightnessLabel);
-                    brightnessLabel.setBounds(15, 125, 110, 20);
+                    brightnessLabel.setBounds(10, 125, 110, 20);
 
                     //---- brightnessSlider ----
                     brightnessSlider.setMinimum(1);
@@ -386,24 +362,24 @@ public class LampConfigGUI extends JDialog {
                         }
                     });
                     lightControlPanel.add(brightnessSlider);
-                    brightnessSlider.setBounds(new Rectangle(new Point(155, 125), brightnessSlider.getPreferredSize()));
+                    brightnessSlider.setBounds(135, 125, 225, brightnessSlider.getPreferredSize().height);
 
                     //---- colourLabel ----
                     colourLabel.setText(bundle.getString("label.colour"));
                     lightControlPanel.add(colourLabel);
-                    colourLabel.setBounds(15, 155, 110, 20);
+                    colourLabel.setBounds(10, 160, 110, 20);
 
                     //---- changeColourButton ----
                     changeColourButton.setText(bundle.getString("label.change"));
                     changeColourButton.addActionListener(e -> changeColourButtonActionPerformed(e));
                     lightControlPanel.add(changeColourButton);
-                    changeColourButton.setBounds(new Rectangle(new Point(250, 150), changeColourButton.getPreferredSize()));
+                    changeColourButton.setBounds(270, 155, changeColourButton.getPreferredSize().width, 30);
 
                     //---- lightColorValueLabel ----
                     lightColorValueLabel.setText(null);
                     lightColorValueLabel.setOpaque(true);
                     lightControlPanel.add(lightColorValueLabel);
-                    lightColorValueLabel.setBounds(170, 155, 60, 20);
+                    lightColorValueLabel.setBounds(170, 160, 60, 20);
 
                     {
                         // compute preferred size
@@ -471,8 +447,6 @@ public class LampConfigGUI extends JDialog {
     private JLabel productNameValueLabel;
     private JLabel swUpdateLabel;
     private JLabel swUpdateValueLabel;
-    private JScrollPane capabilitiesScrollPane;
-    private JPanel capabilitiesPanel;
     private JLabel certifiedLabel;
     private JCheckBox certifiedValueCheckbox;
     private JScrollPane controlScrollPane;
