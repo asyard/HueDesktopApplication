@@ -6,6 +6,7 @@ package org.yardimci.hue.gui.lampconfig;
 
 import com.bric.colorpicker.ColorPicker;
 import com.bric.colorpicker.ColorPickerDialog;
+import com.bric.colorpicker.parts.DialogFooter;
 import org.yardimci.hue.core.HueConnection;
 import org.yardimci.hue.core.model.response.lamp.Lamp;
 import org.yardimci.hue.gui.common.Messagebox;
@@ -154,19 +155,20 @@ public class LampConfigGUI extends JDialog {
 
     private void changeColourButtonActionPerformed(ActionEvent e) {
         ColorPickerDialog dialog = new ColorPickerDialog();
+        dialog.setTitle(Bundle.getValue("label.choosecolor"));
+        //dialog.setLocale(this.getLocale());
         ColorPicker colorPicker = (ColorPicker) dialog.getContentPane().getComponent(0);
+        //colorPicker.setLocale(this.getLocale());
         colorPicker.setColor(lastLightColor);
+
+        DialogFooter dialogFooter = (DialogFooter) dialog.getContentPane().getComponent(1);
+        dialogFooter.getButton(0).setText(Bundle.getValue("label.cancel"));
+        dialogFooter.getButton(1).setText(Bundle.getValue("label.ok"));
+
         dialog.setVisible(true);
         Color color = dialog.getColor();
         if (color != null) {
-            //System.out.println(color.getRed());
-            //System.out.println(color.getGreen());
-            //System.out.println(color.getBlue());
-            //System.out.println(color.getAlpha());
-            //System.out.println(color.getTransparency());
-
             List<Double> rgBtoXY = Util.convertToHueForm(color);
-
             boolean success = HueConnection.getInstance().changeLampColor(lampOrderId, rgBtoXY.get(0), rgBtoXY.get(1));
             if(success) {
                 lightColorValueLabel.setBackground(color);
@@ -174,11 +176,6 @@ public class LampConfigGUI extends JDialog {
                 Messagebox.showError("error.operationfailed");
             }
         }
-
-        /*System.setProperty("ColorChooser.okText", Bundle.getValue("label.ok"));
-        colorChooser.setPreviewPanel(new JPanel());
-        Color newColor = colorChooser.showDialog(null, "Choose a color", Color.RED);
-        System.out.println(newColor);*/
     }
 
 
