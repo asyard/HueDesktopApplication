@@ -4,12 +4,16 @@
 
 package org.yardimci.hue.gui.common.button;
 
-import java.awt.event.*;
+import com.bric.colorpicker.ColorPicker;
+import com.bric.colorpicker.ColorPickerDialog;
 import org.yardimci.hue.gui.common.custom.ToggleSwitch;
+import org.yardimci.hue.util.Util;
 
-import java.awt.*;
-import java.util.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * @author AY
@@ -40,7 +44,6 @@ public class PPP extends JFrame {
         //this.add(scu);
 
 
-
     }
 
     private void checkBox1ActionPerformed(ActionEvent e) {
@@ -48,6 +51,29 @@ public class PPP extends JFrame {
         ts.setActivated(checkBox1.isSelected());
         ts.repaint();
         System.out.println(ts.isActivated());
+
+
+        ColorPickerDialog dialog = new ColorPickerDialog();
+        ColorPicker colorPicker = (ColorPicker) dialog.getContentPane().getComponent(0);
+        colorPicker.setLocale(new Locale("tr"));
+        System.out.println(colorPicker.getActionMap().allKeys());
+        dialog.setVisible(true);
+        Color color = dialog.getColor();
+        System.out.println(color);
+
+
+        float[] hsbValues = new float[3];
+        hsbValues = Color.RGBtoHSB(color.getRed(),color.getGreen(),color.getBlue(),hsbValues);
+        float hue, saturation, brightness;
+        hue = hsbValues[0];
+        saturation = hsbValues[1];
+        brightness = hsbValues[2];
+        System.out.println(hue + "," + saturation + "," + brightness);
+
+        System.out.println(">"+Util.convertToHueForm(color));
+
+
+
     }
 
     private void initComponents() {
@@ -65,7 +91,7 @@ public class PPP extends JFrame {
         //---- label1 ----
         label1.setText(bundle.getString("label.apptitle"));
         contentPane.add(label1);
-        label1.setBounds(new Rectangle(new Point(180, 160), label1.getPreferredSize()));
+        label1.setBounds(new Rectangle(new Point(95, 145), label1.getPreferredSize()));
 
         //---- checkBox1 ----
         checkBox1.setText(bundle.getString("error.responseisnotvalid"));
@@ -92,7 +118,7 @@ public class PPP extends JFrame {
             contentPane.setMinimumSize(preferredSize);
             contentPane.setPreferredSize(preferredSize);
         }
-        pack();
+        setSize(465, 250);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }

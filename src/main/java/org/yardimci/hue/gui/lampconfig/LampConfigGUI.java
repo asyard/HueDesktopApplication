@@ -4,16 +4,20 @@
 
 package org.yardimci.hue.gui.lampconfig;
 
+import com.bric.colorpicker.ColorPicker;
+import com.bric.colorpicker.ColorPickerDialog;
 import org.yardimci.hue.core.HueConnection;
 import org.yardimci.hue.core.model.response.lamp.Lamp;
 import org.yardimci.hue.gui.common.Messagebox;
 import org.yardimci.hue.lang.Bundle;
+import org.yardimci.hue.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -24,6 +28,7 @@ public class LampConfigGUI extends JDialog {
     private String lampOrderId;
     private boolean isOn = false;
     private int lastBrightnessValue = 1;
+    private Color lastLightColor;
 
     public LampConfigGUI(Window owner) {
         super(owner);
@@ -52,6 +57,8 @@ public class LampConfigGUI extends JDialog {
         lastBrightnessValue = lamp.getState().getBri();
         brightnessSlider.setValue(lastBrightnessValue);
 
+        lastLightColor = Util.convertFromHueForm(lamp.getState().getXy(), lamp.getState().getBri());
+        lightColorValueLabel.setBackground(lastLightColor);
     }
 
     private void closeButtonActionPerformed(ActionEvent e) {
@@ -97,10 +104,10 @@ public class LampConfigGUI extends JDialog {
         //todo isOpen check?
         int brightness = brightnessSlider.getValue();
         if (brightness != lastBrightnessValue) {
-            try {
-                HueConnection.getInstance().editLampBrightness(lampOrderId, brightness);
+            boolean success = HueConnection.getInstance().editLampBrightness(lampOrderId, brightness);
+            if(success) {
                 lastBrightnessValue = brightness;
-            } catch (Exception ex) {
+            } else  {
                 Messagebox.showError("error.operationfailed");
                 brightnessSlider.setValue(lastBrightnessValue);
             }
@@ -108,6 +115,28 @@ public class LampConfigGUI extends JDialog {
     }
 
     private void changeColourButtonActionPerformed(ActionEvent e) {
+        ColorPickerDialog dialog = new ColorPickerDialog();
+        ColorPicker colorPicker = (ColorPicker) dialog.getContentPane().getComponent(0);
+        colorPicker.setColor(lastLightColor);
+        dialog.setVisible(true);
+        Color color = dialog.getColor();
+        if (color != null) {
+            //System.out.println(color.getRed());
+            //System.out.println(color.getGreen());
+            //System.out.println(color.getBlue());
+            //System.out.println(color.getAlpha());
+            //System.out.println(color.getTransparency());
+
+            List<Double> rgBtoXY = Util.convertToHueForm(color);
+
+            boolean success = HueConnection.getInstance().changeLampColor(lampOrderId, rgBtoXY.get(0), rgBtoXY.get(1));
+            if(success) {
+                lightColorValueLabel.setBackground(color);
+            } else  {
+                Messagebox.showError("error.operationfailed");
+            }
+        }
+
         /*System.setProperty("ColorChooser.okText", Bundle.getValue("label.ok"));
         colorChooser.setPreviewPanel(new JPanel());
         Color newColor = colorChooser.showDialog(null, "Choose a color", Color.RED);
@@ -151,8 +180,8 @@ public class LampConfigGUI extends JDialog {
         brightnessSlider = new JSlider();
         colourLabel = new JLabel();
         changeColourButton = new JButton();
+        lightColorValueLabel = new JLabel();
         closeButton = new JButton();
-        colorChooser = new JColorChooser();
 
         //======== this ========
         setModal(true);
@@ -170,13 +199,12 @@ public class LampConfigGUI extends JDialog {
 
                 //======== generalPanel ========
                 {
-                    generalPanel.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing
-                    .border.EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border.TitledBorder
-                    .CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.
-                    awt.Font.BOLD,12),java.awt.Color.red),generalPanel. getBorder()))
-                    ;generalPanel. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
-                    ){if("\u0062ord\u0065r".equals(e.getPropertyName()))throw new RuntimeException();}})
-                    ;
+                    generalPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+                    . EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax
+                    . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
+                    12 ), java. awt. Color. red) ,generalPanel. getBorder( )) ); generalPanel. addPropertyChangeListener (new java. beans
+                    . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .
+                    getPropertyName () )) throw new RuntimeException( ); }} );
                     generalPanel.setLayout(null);
 
                     //---- nameLabel ----
@@ -369,7 +397,13 @@ public class LampConfigGUI extends JDialog {
                     changeColourButton.setText(bundle.getString("label.change"));
                     changeColourButton.addActionListener(e -> changeColourButtonActionPerformed(e));
                     lightControlPanel.add(changeColourButton);
-                    changeColourButton.setBounds(new Rectangle(new Point(175, 155), changeColourButton.getPreferredSize()));
+                    changeColourButton.setBounds(new Rectangle(new Point(250, 150), changeColourButton.getPreferredSize()));
+
+                    //---- lightColorValueLabel ----
+                    lightColorValueLabel.setText(null);
+                    lightColorValueLabel.setOpaque(true);
+                    lightControlPanel.add(lightColorValueLabel);
+                    lightColorValueLabel.setBounds(170, 155, 60, 20);
 
                     {
                         // compute preferred size
@@ -415,10 +449,6 @@ public class LampConfigGUI extends JDialog {
         }
         pack();
         setLocationRelativeTo(getOwner());
-
-        //---- colorChooser ----
-        colorChooser.setMaximumSize(new Dimension(681, 365));
-        colorChooser.setVisible(false);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
@@ -457,7 +487,7 @@ public class LampConfigGUI extends JDialog {
     private JSlider brightnessSlider;
     private JLabel colourLabel;
     private JButton changeColourButton;
+    private JLabel lightColorValueLabel;
     private JButton closeButton;
-    private JColorChooser colorChooser;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

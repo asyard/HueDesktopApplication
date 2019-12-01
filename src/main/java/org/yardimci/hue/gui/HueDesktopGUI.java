@@ -133,7 +133,6 @@ public class HueDesktopGUI extends JFrame {
             JTable target = (JTable) e.getSource();
             int row = target.getSelectedRow(); // select a row
             int column = target.getSelectedColumn(); // select a column
-
             try {
                 Lamp singleLampResponseData = HueConnection.getInstance().getSingleLampResponseData(String.valueOf(row + 1));//todo
                 LampConfigGUI lampConfigGUI = new LampConfigGUI(this);
@@ -144,8 +143,6 @@ public class HueDesktopGUI extends JFrame {
                 Messagebox.showError("error.operationfailed");
                 return;
             }
-
-            //Messagebox.showError(row + "- " + column);
         }
     }
 
