@@ -17,9 +17,7 @@ import org.yardimci.hue.lang.Bundle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -137,6 +135,12 @@ public class HueDesktopGUI extends JFrame {
                 Lamp singleLampResponseData = HueConnection.getInstance().getSingleLampResponseData(String.valueOf(row + 1));//todo
                 LampConfigGUI lampConfigGUI = new LampConfigGUI(this);
                 lampConfigGUI.setData(String.valueOf(row + 1), singleLampResponseData);
+                lampConfigGUI.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        listAvailableLamps();
+                    }
+                });
                 lampConfigGUI.setVisible(true);
             } catch (Exception ex) {
                 ex.printStackTrace();
