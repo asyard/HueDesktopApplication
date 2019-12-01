@@ -42,14 +42,12 @@ public class LampConfigGUI extends JDialog {
         // general
         nameValueLabel.setText(lamp.getName());
         modelIdValueLabel.setText(lamp.getManufacturername() + " - " + lamp.getModelid());
+        typeValueLabel.setText(lamp.getType());
         uniqueIdValueLabel.setText(lamp.getUniqueid());
         swVersionValueLabel.setText(lamp.getSwversion());
         swUpdateValueLabel.setText(lamp.getSwupdate().getLastinstall());
         productIdValueLabel.setText(lamp.getProductid());
         productNameValueLabel.setText(lamp.getProductname());
-
-
-        //capabilities
         certifiedValueCheckbox.setSelected(lamp.getCapabilities().isCertified());
 
         //control
@@ -170,6 +168,8 @@ public class LampConfigGUI extends JDialog {
         swUpdateValueLabel = new JLabel();
         certifiedLabel = new JLabel();
         certifiedValueCheckbox = new JCheckBox();
+        typeLabel = new JLabel();
+        typeValueLabel = new JLabel();
         controlScrollPane = new JScrollPane();
         lightControlPanel = new JPanel();
         turnOnOfButton = new JButton();
@@ -201,12 +201,13 @@ public class LampConfigGUI extends JDialog {
 
                 //======== generalPanel ========
                 {
-                    generalPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
-                    EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing
-                    . border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ),
-                    java. awt. Color. red) ,generalPanel. getBorder( )) ); generalPanel. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
-                    { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () ))
-                    throw new RuntimeException( ); }} );
+                    generalPanel.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax
+                    .swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax.swing
+                    .border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.
+                    Font("D\u0069alog",java.awt.Font.BOLD,12),java.awt.Color.red
+                    ),generalPanel. getBorder()));generalPanel. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override
+                    public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062order".equals(e.getPropertyName(
+                    )))throw new RuntimeException();}});
                     generalPanel.setLayout(null);
 
                     //---- nameLabel ----
@@ -229,67 +230,77 @@ public class LampConfigGUI extends JDialog {
                     uniqueIdLabel.setText(bundle.getString("label.uniqueid"));
                     uniqueIdLabel.setToolTipText(bundle.getString("label.uniqueid"));
                     generalPanel.add(uniqueIdLabel);
-                    uniqueIdLabel.setBounds(10, 60, 110, 20);
+                    uniqueIdLabel.setBounds(10, 85, 110, 20);
 
                     //---- uniqueIdValueLabel ----
                     uniqueIdValueLabel.setText(null);
                     generalPanel.add(uniqueIdValueLabel);
-                    uniqueIdValueLabel.setBounds(130, 60, 200, 20);
+                    uniqueIdValueLabel.setBounds(130, 85, 200, 20);
 
                     //---- swVersionLabel ----
                     swVersionLabel.setText(bundle.getString("label.swversion"));
                     swVersionLabel.setToolTipText(bundle.getString("label.swversion"));
                     generalPanel.add(swVersionLabel);
-                    swVersionLabel.setBounds(10, 135, 110, 20);
+                    swVersionLabel.setBounds(10, 160, 110, 20);
 
                     //---- swVersionValueLabel ----
                     swVersionValueLabel.setText(null);
                     generalPanel.add(swVersionValueLabel);
-                    swVersionValueLabel.setBounds(130, 135, 200, 20);
+                    swVersionValueLabel.setBounds(130, 160, 200, 20);
 
                     //---- productIdLabel ----
                     productIdLabel.setText(bundle.getString("label.productid"));
                     productIdLabel.setToolTipText(bundle.getString("label.productid"));
                     generalPanel.add(productIdLabel);
-                    productIdLabel.setBounds(10, 85, 110, 20);
+                    productIdLabel.setBounds(10, 110, 110, 20);
 
                     //---- productIdValueLabel ----
                     productIdValueLabel.setText(null);
                     generalPanel.add(productIdValueLabel);
-                    productIdValueLabel.setBounds(130, 85, 200, 20);
+                    productIdValueLabel.setBounds(130, 110, 200, 20);
 
                     //---- productNameLabel ----
                     productNameLabel.setText(bundle.getString("label.productname"));
                     productNameLabel.setToolTipText(bundle.getString("label.productname"));
                     generalPanel.add(productNameLabel);
-                    productNameLabel.setBounds(10, 110, 110, 20);
+                    productNameLabel.setBounds(10, 135, 110, 20);
 
                     //---- productNameValueLabel ----
                     productNameValueLabel.setText(null);
                     generalPanel.add(productNameValueLabel);
-                    productNameValueLabel.setBounds(130, 110, 200, 20);
+                    productNameValueLabel.setBounds(130, 135, 200, 20);
 
                     //---- swUpdateLabel ----
                     swUpdateLabel.setText(bundle.getString("label.swupdate"));
                     swUpdateLabel.setToolTipText(bundle.getString("label.swupdate"));
                     generalPanel.add(swUpdateLabel);
-                    swUpdateLabel.setBounds(10, 160, 110, 20);
+                    swUpdateLabel.setBounds(10, 185, 110, 20);
 
                     //---- swUpdateValueLabel ----
                     swUpdateValueLabel.setText(null);
                     generalPanel.add(swUpdateValueLabel);
-                    swUpdateValueLabel.setBounds(130, 160, 200, 20);
+                    swUpdateValueLabel.setBounds(130, 185, 200, 20);
 
                     //---- certifiedLabel ----
                     certifiedLabel.setText(bundle.getString("label.certified"));
                     certifiedLabel.setPreferredSize(new Dimension(52, 20));
                     generalPanel.add(certifiedLabel);
-                    certifiedLabel.setBounds(10, 185, 110, 20);
+                    certifiedLabel.setBounds(10, 210, 110, 20);
 
                     //---- certifiedValueCheckbox ----
                     certifiedValueCheckbox.setEnabled(false);
                     generalPanel.add(certifiedValueCheckbox);
-                    certifiedValueCheckbox.setBounds(new Rectangle(new Point(130, 185), certifiedValueCheckbox.getPreferredSize()));
+                    certifiedValueCheckbox.setBounds(new Rectangle(new Point(130, 210), certifiedValueCheckbox.getPreferredSize()));
+
+                    //---- typeLabel ----
+                    typeLabel.setText(bundle.getString("label.type"));
+                    generalPanel.add(typeLabel);
+                    typeLabel.setBounds(10, 60, 110, 20);
+
+                    //---- typeValueLabel ----
+                    typeValueLabel.setText(null);
+                    generalPanel.add(typeValueLabel);
+                    typeValueLabel.setBounds(130, 60, 200, 20);
 
                     {
                         // compute preferred size
@@ -449,6 +460,8 @@ public class LampConfigGUI extends JDialog {
     private JLabel swUpdateValueLabel;
     private JLabel certifiedLabel;
     private JCheckBox certifiedValueCheckbox;
+    private JLabel typeLabel;
+    private JLabel typeValueLabel;
     private JScrollPane controlScrollPane;
     private JPanel lightControlPanel;
     private JButton turnOnOfButton;

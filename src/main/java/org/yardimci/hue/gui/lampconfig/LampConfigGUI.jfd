@@ -59,7 +59,7 @@ new FormModel {
 							"toolTipText": new FormMessage( null, "label.uniqueid" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 10
-							"y": 60
+							"y": 85
 							"width": 110
 							"height": 20
 						} )
@@ -68,7 +68,7 @@ new FormModel {
 							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 130
-							"y": 60
+							"y": 85
 							"width": 200
 							"height": 20
 						} )
@@ -78,7 +78,7 @@ new FormModel {
 							"toolTipText": new FormMessage( null, "label.swversion" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 10
-							"y": 135
+							"y": 160
 							"width": 110
 							"height": 20
 						} )
@@ -87,7 +87,7 @@ new FormModel {
 							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 130
-							"y": 135
+							"y": 160
 							"width": 200
 							"height": 20
 						} )
@@ -97,7 +97,7 @@ new FormModel {
 							"toolTipText": new FormMessage( null, "label.productid" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 10
-							"y": 85
+							"y": 110
 							"width": 110
 							"height": 20
 						} )
@@ -106,7 +106,7 @@ new FormModel {
 							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 130
-							"y": 85
+							"y": 110
 							"width": 200
 							"height": 20
 						} )
@@ -116,7 +116,7 @@ new FormModel {
 							"toolTipText": new FormMessage( null, "label.productname" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 10
-							"y": 110
+							"y": 135
 							"width": 110
 							"height": 20
 						} )
@@ -125,7 +125,7 @@ new FormModel {
 							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 130
-							"y": 110
+							"y": 135
 							"width": 200
 							"height": 20
 						} )
@@ -135,7 +135,7 @@ new FormModel {
 							"toolTipText": new FormMessage( null, "label.swupdate" )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 10
-							"y": 160
+							"y": 185
 							"width": 110
 							"height": 20
 						} )
@@ -144,7 +144,7 @@ new FormModel {
 							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 130
-							"y": 160
+							"y": 185
 							"width": 200
 							"height": 20
 						} )
@@ -156,14 +156,32 @@ new FormModel {
 							"width": 110
 							"height": 20
 							"x": 10
-							"y": 185
+							"y": 210
 						} )
 						add( new FormComponent( "javax.swing.JCheckBox" ) {
 							name: "certifiedValueCheckbox"
 							"enabled": false
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 							"x": 130
-							"y": 185
+							"y": 210
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "typeLabel"
+							"text": new FormMessage( null, "label.type" )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 60
+							"width": 110
+							"height": 20
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "typeValueLabel"
+							"text": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 130
+							"y": 60
+							"height": 20
+							"width": 200
 						} )
 					} )
 				}, new FormLayoutConstraints( null ) {
