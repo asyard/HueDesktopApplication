@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.3" encoding: "UTF-8"
+JFDML JFormDesigner: "7.0.7.0.1134" Java: "17.0.3" encoding: "UTF-8"
 
 new FormModel {
 	"i18n.autoExternalize": true
@@ -16,13 +16,13 @@ new FormModel {
 				name: "progressImageLabel"
 				"icon": new com.jformdesigner.model.SwingIcon( 0, "/icons/info.png" )
 			}, new FormLayoutConstraints( class java.lang.String ) {
-				"value": "Before"
+				"value": "West"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "progressInfoLabel"
 				"text": new FormMessage( null, "label.pleasewait" )
 			}, new FormLayoutConstraints( class java.lang.String ) {
-				"value": "Center"
+				"value": "East"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

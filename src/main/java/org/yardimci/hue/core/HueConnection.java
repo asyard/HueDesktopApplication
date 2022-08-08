@@ -1,13 +1,13 @@
 package org.yardimci.hue.core;
 
+import jakarta.ws.rs.client.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.yardimci.hue.config.HueAppSettings;
 import org.yardimci.hue.core.model.Bridge;
 import org.yardimci.hue.core.model.response.LampResponseData;
 import org.yardimci.hue.core.model.response.lamp.Lamp;
 
-import javax.ws.rs.client.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

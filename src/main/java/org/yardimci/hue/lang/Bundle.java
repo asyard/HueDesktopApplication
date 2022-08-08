@@ -11,7 +11,7 @@ public class Bundle {
     public static String getValue(String key) {
         //TODO return resourceBundle.getString(key);
         try {
-            return new String(resourceBundle.getString(key).getBytes("ISO-8859-1"), "UTF-8");
+            return new String(resourceBundle.getString(key).getBytes("UTF-8"), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             return resourceBundle.getString(key);
         } catch (Exception e) {

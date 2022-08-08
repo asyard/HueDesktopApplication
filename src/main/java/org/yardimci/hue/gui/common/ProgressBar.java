@@ -15,11 +15,11 @@ public class ProgressBar extends JDialog {
     public ProgressBar(Window owner) {
         super(owner);
         initComponents();
+        setSize(140, 55);
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - AY
         ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
         progressImageLabel = new JLabel();
         progressInfoLabel = new JLabel();
@@ -34,18 +34,17 @@ public class ProgressBar extends JDialog {
 
         //---- progressImageLabel ----
         progressImageLabel.setIcon(new ImageIcon(getClass().getResource("/icons/info.png")));
-        contentPane.add(progressImageLabel, BorderLayout.LINE_START);
+        contentPane.add(progressImageLabel, BorderLayout.WEST);
 
         //---- progressInfoLabel ----
         progressInfoLabel.setText(bundle.getString("label.pleasewait"));
-        contentPane.add(progressInfoLabel, BorderLayout.CENTER);
+        contentPane.add(progressInfoLabel, BorderLayout.EAST);
         setSize(95, 55);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - AY
     private JLabel progressImageLabel;
     private JLabel progressInfoLabel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

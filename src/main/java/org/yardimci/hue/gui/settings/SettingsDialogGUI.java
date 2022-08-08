@@ -108,6 +108,7 @@ public class SettingsDialogGUI extends JDialog {
                 }
             } catch (Exception e1) {
                 e1.printStackTrace();
+                Messagebox.showError("error.operationfailed");
             }
 
         }

@@ -4,7 +4,6 @@
 
 package org.yardimci.hue.gui;
 
-import com.sun.javafx.PlatformUtil;
 import org.yardimci.hue.config.HueAppSettings;
 import org.yardimci.hue.core.HueConnection;
 import org.yardimci.hue.core.model.response.lamp.Lamp;
@@ -78,15 +77,14 @@ public class HueDesktopGUI extends JFrame {
         reloadLabels();
 
         try {
-            if (PlatformUtil.isMac()) {
+            if (System.getProperty("os.name").toLowerCase().contains("mac")) {
                 //com.apple.eawt.Application.getApplication().setDockIconImage(new ImageIcon(getClass().getResource("/icons/applogo-100.png")).getImage());
                 Image image = new ImageIcon(getClass().getResource("/icons/applogo-100.png")).getImage();
-                Class applicationClass = Class.forName("com.apple.eawt.Application");
-                Method applicationClassSingletonMethod = applicationClass.getMethod("getApplication");
-                Object applicationClassInstance = applicationClassSingletonMethod.invoke(null);
-
-                Method applicationClassSetDockIconMethod = applicationClass.getMethod("setDockIconImage", java.awt.Image.class);
-                applicationClassSetDockIconMethod.invoke(applicationClassInstance, image);
+                Class taskbar = Class.forName("java.awt.Taskbar");
+                Method getTaskbar = taskbar.getDeclaredMethod("getTaskbar");
+                Object instance = getTaskbar.invoke(taskbar);
+                Method setIconImage = instance.getClass().getDeclaredMethod("setIconImage", Image.class);
+                setIconImage.invoke(instance, image);
             }
         } catch (Exception e) {
             e.printStackTrace();
